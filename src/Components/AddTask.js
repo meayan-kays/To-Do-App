@@ -3,26 +3,29 @@ import { connect } from 'react-redux'
 import { addTask } from '../Redux/Action/action';
 
 const AddTask = (props) => {
-    const [newTask, setNewTask] = useState('');
+    const [newTaskDescription, setNewTaskDescription] = useState('');
     let id = props.todos.length;
 
     const handleAdd = () => {
-        const task = {
-            id : ++id,
-            description : newTask,
-            isDone : false
+        if(newTaskDescription.trim() === ""){
+            alert("Please Add Your Task ...")
         }
-        props.addNewTask(task)
-        setNewTask('')
+        else{
+            const newTask = {
+                id : ++id,
+                description : newTaskDescription,
+                isDone : false
+            }
+            props.addNewTask(newTask)
+            setNewTaskDescription('')
+        }
+        
     }
-
- 
-     
 
     return (
         <div className="add-task">
             <input type="text" placeholder="Add New Task ..." 
-            value={newTask} onChange = {(e) => setNewTask(e.target.value)} />
+            value={newTaskDescription} onChange = {(e) => setNewTaskDescription(e.target.value)} />
             <button className="add-btn" onClick={handleAdd}>Add</button>
         </div>
     )
